@@ -195,31 +195,50 @@
 		 * @param string $fieldnamePostfix
 		 */
 		public function displayPublishPanel(&$wrapper, $data=NULL, $flagWithError=NULL, $fieldnamePrefix=NULL, $fieldnamePostfix=NULL) {
+			if (!$data) {
+				$data = array(
+					'hue' => 0,
+					'saturation' => 0,
+					'brightness' => 0
+				);
+			}
 			$field = new XMLElement('div');
-
+			$field->setValue($this->get('label'));
 			$field->setAttribute('data-field-handles', $this->convertHandlesIntoIds($this->get('field-handles')));
+
+			$frame = new XMLElement('span', NULL, array('class' => 'frame'));
 
 			$iHue = $this->createRange('Hue',        'hue',        $data, $flagWithError, $fieldnamePrefix, $fieldnamePostfix);
 			$iSat = $this->createRange('Saturation', 'saturation', $data, $flagWithError, $fieldnamePrefix, $fieldnamePostfix);
 			$iBri = $this->createRange('Brightness', 'brightness', $data, $flagWithError, $fieldnamePrefix, $fieldnamePostfix);
 
-			$field->appendChild($iHue);
-			$field->appendChild($iSat);
-			$field->appendChild($iBri);
+			$frame->appendChild($iHue);
+			$frame->appendChild($iSat);
+			$frame->appendChild($iBri);
+
+			$field->appendChild($frame);
 
 			$wrapper->appendChild($field);
 		}
 
-		private function createRange($text, $key, $data, $flagWithError=NULL, $fieldnamePrefix=NULL, $fieldnamePostfix=NULL) {
+		private function createRange($text, $key, $data, $flagWithError=NULL, $fieldnamePrefix=NULL, $fieldnamePostfix=NULL, $min=-255, $max=255) {
 			$lbl = new XMLElement('label', __($text), array('class' => ''));
 			$input = new XMLElement('input', NULL, array(
 				'type' => 'range',
 				'value' => $data[$key],
-				'name' => 'fields'.$fieldnamePrefix.'['.$this->get('element_name').']'.$fieldnamePostfix . "[$key]"
+				'name' => 'fields'.$fieldnamePrefix.'['.$this->get('element_name').']'.$fieldnamePostfix . "[$key]",
+				'min' => $min,
+				'max' => $max
 			));
 			$input->setSelfClosingTag(true);
 
-			$lbl->prependChild($input);
+			$value = new XMLElement('i');
+			$value->appendChild(new XMLElement('span', '('));
+			$value->appendChild(new XMLElement('span', $data[$key], array('class' => 'filter-value')));
+			$value->appendChild(new XMLElement('span', ')'));
+
+			$lbl->appendChild($value);
+			$lbl->appendChild($input);
 
 			if ($flagWithError) {
 				$lbl = Widget::wrapFormElementWithError($lbl, $flagWithError);
@@ -344,7 +363,7 @@
 				CREATE TABLE IF NOT EXISTS `$tbl` (
 					`id` 				int(11) unsigned NOT NULL auto_increment,
 					`field_id` 			int(11) unsigned NOT NULL,
-					`field-handles`		varchar(255) NOT NULL,
+					`field-handles`		varchar(255) NULL,
 					PRIMARY KEY (`id`),
 					KEY `field_id` (`field_id`)
 				)  ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;

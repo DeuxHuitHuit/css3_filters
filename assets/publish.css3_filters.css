@@ -1,0 +1,28 @@
+/*
+	Copyight: Deux Huit Huit 2013
+	License: MIT, see the LICENCE file
+*/
+
+/**
+ * CSS for css3_filters
+ *
+ * @author deuxhuithuit
+ */
+
+.field-css3_filters .frame {
+	text-align: left;
+}
+
+.field-css3_filters .frame > label {
+	display: block;
+	margin-right: 10px;
+}
+
+.field-css3_filters .frame > label > input {
+	display: block;
+	width: 225px;
+}
+
+.primary .field-css3_filters .frame > label {
+	display: inline-block;
+}

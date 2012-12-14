@@ -53,11 +53,18 @@
 			// publish page, new or edit
 			if(isset($c['context']['section_handle']) && in_array($c['context']['page'], array('new', 'edit'))){
 
-				/*Administration::instance()->Page->addScriptToHead(
-					URL . '/extensions/oembed_field/assets/publish.oembed.js',
+				Administration::instance()->Page->addStylesheetToHead(
+					URL . '/extensions/css3_filters/assets/publish.css3_filters.css',
+					'screen',
 					time(),
 					false
-				);*/
+				);
+
+				Administration::instance()->Page->addScriptToHead(
+					URL . '/extensions/css3_filters/assets/publish.css3_filters.js',
+					time() + 1,
+					false
+				);
 
 				return;
 			}
