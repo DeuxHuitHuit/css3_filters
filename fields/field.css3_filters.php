@@ -186,7 +186,7 @@
 		 * @param $data
 		 */
 		public function appendFormattedElement(&$wrapper, $data) {
-			var_dump($data);
+			//var_dump($data);
 			if (!$data || empty($data)) {
 				$data = $this->DEFAULTS;
 			}
