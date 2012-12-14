@@ -6,6 +6,7 @@
 
 	if(!defined("__IN_SYMPHONY__")) die("<h2>Error</h2><p>You cannot directly access this file</p>");
 
+	require_once(EXTENSIONS . '/css3_filters/fields/field.css3_filters.php');
 
 	/**
 	 *
@@ -69,7 +70,7 @@
 		 * Creates the table needed for the settings of the field
 		 */
 		public function install() {
-			return true;
+			return FieldCss3_Filters::createFieldTable();
 
 		}
 
@@ -85,7 +86,7 @@
 		 * Drops the table needed for the settings of the field
 		 */
 		public function uninstall() {
-			return true;
+			return FieldCss3_Filters::deleteFieldTable();
 		}
 
 	}

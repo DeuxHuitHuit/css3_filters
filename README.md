@@ -28,7 +28,7 @@ Come say hi! -> <http://www.deuxhuithuit.com/>
 
 ### HOW TO USE ###
 
-- Add a CSS3 Filter field to your section.
+- Add a CSS3 Filters field to your section.
 - Optionally, set some fields handle in order to get a preview
 	- You must have image_preview extension installed, or some other
 	extension that shows a image preview in the publish section.
