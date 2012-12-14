@@ -236,17 +236,17 @@
 			if (!$data) {
 				$data = array(
 					'hue' => 0,
-					'saturation' => 0,
+					'saturation' => 100,
 					'brightness' => 0
 				);
 			}
-			$field = new XMLElement('div');
-			$field->setValue($this->get('label'));
-			$field->setAttribute('data-field-handles', $this->convertHandlesIntoIds($this->get('field-handles')));
+
+			$wrapper->setValue($this->get('label'));
+			$wrapper->setAttribute('data-field-handles', $this->convertHandlesIntoIds($this->get('field-handles')));
 
 			$frame = new XMLElement('span', NULL, array('class' => 'frame'));
 
-			$iHue = $this->createRange('Hue',        'hue',        $data, $flagWithError, $fieldnamePrefix, $fieldnamePostfix);
+			$iHue = $this->createRange('Hue',        'hue',        $data, $flagWithError, $fieldnamePrefix, $fieldnamePostfix, 0, 360, 'degrees');
 			$iSat = $this->createRange('Saturation', 'saturation', $data, $flagWithError, $fieldnamePrefix, $fieldnamePostfix);
 			$iBri = $this->createRange('Brightness', 'brightness', $data, $flagWithError, $fieldnamePrefix, $fieldnamePostfix);
 
@@ -254,12 +254,10 @@
 			$frame->appendChild($iSat);
 			$frame->appendChild($iBri);
 
-			$field->appendChild($frame);
-
-			$wrapper->appendChild($field);
+			$wrapper->appendChild($frame);
 		}
 
-		private function createRange($text, $key, $data, $flagWithError=NULL, $fieldnamePrefix=NULL, $fieldnamePostfix=NULL, $min=-255, $max=255) {
+		private function createRange($text, $key, $data, $flagWithError=NULL, $fieldnamePrefix=NULL, $fieldnamePostfix=NULL, $min=0, $max=100, $unit='%') {
 			$lbl = new XMLElement('label', __($text));
 			$input = new XMLElement('input', NULL, array(
 				'type' => 'range',
@@ -271,9 +269,8 @@
 			$input->setSelfClosingTag(true);
 
 			$value = new XMLElement('i');
-			$value->appendChild(new XMLElement('span', '('));
 			$value->appendChild(new XMLElement('span', $data[$key], array('class' => 'filter-value')));
-			$value->appendChild(new XMLElement('span', ')'));
+			$value->appendChild(new XMLElement('span', $unit));
 
 			$lbl->appendChild($value);
 			$lbl->appendChild($input);
