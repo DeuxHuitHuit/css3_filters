@@ -181,21 +181,12 @@
 		/* ******* DATA SOURCE ******* */
 
 		/**
-		 *
-		 * This array will populate the Datasource included elements.
-		 * @return array - the included elements
-		 * @see http://symphony-cms.com/learn/api/2.2.3/toolkit/field/#fetchIncludableElements
-		 */
-		public function fetchIncludableElements() {
-			return array($this->get('element_name'));
-		}
-
-		/**
 		 * Appends data into the XML tree of a Data Source
 		 * @param $wrapper
 		 * @param $data
 		 */
 		public function appendFormattedElement(&$wrapper, $data) {
+			var_dump($data);
 			if (!$data || empty($data)) {
 				$data = $this->DEFAULTS;
 			}
