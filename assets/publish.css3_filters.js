@@ -100,7 +100,23 @@
 	
 	init = function () {
 		$(FIELD_CLASS).each(_hookOne);
-		$('body').on('load', ALL_IMG_CLASS, load);
+		$(window).on('load', ALL_IMG_CLASS, load); // not working !!!
+		
+		// lame
+		var 
+		count = 0,
+		tick = function () {
+			if (count < 5) {
+				console.log('loading css filters');
+				load();
+				count++;
+				timer();
+			}
+		},
+		timer = function () {
+			setTimeout(tick, 500);
+		};
+		timer();
 	};
 
 	$(init);
