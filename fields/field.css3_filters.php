@@ -19,6 +19,11 @@
 		 */
 		const FIELD_TBL_NAME = 'tbl_fields_css3_filters';
 
+		private $DEFAULTS = array(
+			'hue' => 0,
+			'saturation' => 100,
+			'brightness' => 0
+		);
 
 		/**
 		 *
@@ -29,7 +34,7 @@
 			// call the parent constructor
 			parent::__construct();
 			// set the name of the field
-			$this->_name = __(extension_css3_filters::EXT_NAME);
+			$this->_name = __('CSS 3 Filters');
 			// permits to make it required
 			$this->_required = false;
 			// permits the make it show in the table columns
@@ -182,7 +187,7 @@
 		 * @see http://symphony-cms.com/learn/api/2.2.3/toolkit/field/#fetchIncludableElements
 		 */
 		public function fetchIncludableElements() {
-			return FALSE;
+			return array($this->get('element_name'));
 		}
 
 		/**
@@ -191,7 +196,36 @@
 		 * @param $data
 		 */
 		public function appendFormattedElement(&$wrapper, $data) {
-			return FALSE;
+			if (!$data || empty($data)) {
+				$data = $this->DEFAULTS;
+			}
+			$node = new XMLElement($this->get('element_name'));
+			$filter = 'hue-rotate(' . $data['hue'] . 'deg) saturate(' .
+						 $data['saturation'] . '%) brightness(' .
+						 $data['brightness'] . '%)';
+
+			$node->setAttribute('filter', $filter);
+
+			$filters = new XMLElement('filters');
+
+			$hue = new XMLElement('filter', $data['hue']);
+			$hue->setAttribute('name', 'hue-rotate');
+			$hue->setAttribute('unit', 'deg');
+			$filters->appendChild($hue);
+
+			$sat = new XMLElement('filter', $data['saturation']);
+			$sat->setAttribute('name', 'saturate');
+			$sat->setAttribute('unit', '%');
+			$filters->appendChild($sat);
+
+			$bri = new XMLElement('filter', $data['brightness']);
+			$bri->setAttribute('name', 'brightness');
+			$bri->setAttribute('unit', '%');
+			$filters->appendChild($bri);
+
+			$node->appendChild($filters);
+
+			$wrapper->appendChild($node);
 		}
 
 
@@ -233,12 +267,8 @@
 		 * @param string $fieldnamePostfix
 		 */
 		public function displayPublishPanel(&$wrapper, $data=NULL, $flagWithError=NULL, $fieldnamePrefix=NULL, $fieldnamePostfix=NULL) {
-			if (!$data) {
-				$data = array(
-					'hue' => 0,
-					'saturation' => 100,
-					'brightness' => 0
-				);
+			if (!$data || empty($data)) {
+				$data = $this->DEFAULTS;
 			}
 
 			$wrapper->setValue($this->get('label'));

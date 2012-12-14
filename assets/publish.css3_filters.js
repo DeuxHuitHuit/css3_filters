@@ -107,7 +107,7 @@
 		count = 0,
 		tick = function () {
 			if (count < 5) {
-				console.log('loading css filters');
+				//console.log('loading css filters');
 				load();
 				count++;
 				timer();
