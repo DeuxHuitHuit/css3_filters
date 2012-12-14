@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension id="css3_filters" status="experimental" xmlns="http://symphony-cms.com/schemas/extension/1.0">
+	<name>CSS3 Filters</name>
+	<description>
+		Offers a field in order to create CSS 3 filters
+	</description>
+	<repo type="github">https://github.com/DeuxHuitHuit/css3_filters</repo>
+	<url type="discuss">https://github.com/DeuxHuitHuit/css3_filters/issues</url>
+	<types>
+		<type>CSS3</type>
+		<type>Field</type>
+		<type>Filters</type>
+	</types>
+	<authors>
+		<author>
+			<name github="DeuxHuitHuit" symphony="nitriques" twitter="DeuxHuitHuit">Deux Huit Huit</name>
+			<website>http://www.deuxhuithuit.com</website>
+		</author>
+	</authors>
+	<dependencies>
+		<!-- None -->
+	</dependencies>
+	<releases>
+		<release version="1.0" date="TBA" min="2.3.1">
+			- First release
+		</release>
+	</releases>
+</extension>
