@@ -260,7 +260,7 @@
 		}
 
 		private function createRange($text, $key, $data, $flagWithError=NULL, $fieldnamePrefix=NULL, $fieldnamePostfix=NULL, $min=-255, $max=255) {
-			$lbl = new XMLElement('label', __($text), array('class' => ''));
+			$lbl = new XMLElement('label', __($text));
 			$input = new XMLElement('input', NULL, array(
 				'type' => 'range',
 				'value' => $data[$key],
