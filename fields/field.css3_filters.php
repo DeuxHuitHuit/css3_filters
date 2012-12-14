@@ -75,6 +75,44 @@
 
 		/* ********** INPUT AND FIELD *********** */
 
+
+		/**
+		 *
+		 * Validates input
+		 * Called before <code>processRawFieldData</code>
+		 * @param $data
+		 * @param $message
+		 * @param $entry_id
+		 */
+		public function checkPostFieldData($data, &$message, $entry_id=NULL){
+			// Always valid!
+			$message = NULL;
+			return self::__OK__;
+		}
+
+
+		/**
+		 *
+		 * Process entries data before saving into database.
+		 *
+		 * @param array $data
+		 * @param int $status
+		 * @param boolean $simulate
+		 * @param int $entry_id
+		 *
+		 * @return Array - data to be inserted into DB
+		 */
+		public function processRawFieldData($data, &$status, &$message = null, $simulate = false, $entry_id = null) {
+			$status = self::__OK__;
+
+			// transform to int
+			foreach ($data as $key => $value) {
+				$data[$key] = intval($value);
+			}
+
+			return $data;
+		}
+
 		/**
 		 * This function permits parsing different field settings values
 		 *
